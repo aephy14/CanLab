@@ -262,7 +262,7 @@ hr{border:0; border-top:1px solid var(--line); margin:0}
 
 .cta{padding:34px 0;}
 .cta-inner{
-  display:flex; align-items:center; justify-content:flex-end;
+  display:flex; align-items:center; justify-content:space-between;
   gap:18px; flex-wrap:wrap;
   padding:18px;
 }
@@ -271,7 +271,7 @@ hr{border:0; border-top:1px solid var(--line); margin:0}
 
 .footer{ padding:26px 0; color:var(--muted); font-size:13px; }
 .footer-row{
-  display:flex; justify-content:flex-end; align-items:center; gap:14px; flex-wrap:wrap;
+  display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;
 }
 .footer a{color:var(--muted)}
 .footer a:hover{color:var(--text)}
