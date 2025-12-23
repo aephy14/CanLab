@@ -231,7 +231,7 @@ hr{border:0; border-top:1px solid var(--line); margin:0}
 .h2{ font-size:24px; letter-spacing:-0.02em; margin:0 0 10px 0; }
 .p{ color:var(--muted); margin:0; max-width:70ch; }
 .header-row{
-  display:flex; align-items:flex-end; justify-content:flex-end;
+  display:flex; align-items:flex-end; justify-content:space-between;
   gap:18px; flex-wrap:wrap;
   margin-bottom:18px;
 }
