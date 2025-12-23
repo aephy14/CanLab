@@ -99,7 +99,7 @@ hr{border:0; border-top:1px solid var(--line); margin:0}
   background: rgba(255,255,255,.06);
   cursor:pointer;
 }
-.icon-btn svg{width:20px; height:20px}
+.icon-btn svg{width:20px; height:20px; stroke:var(--text)}
 
 .mobile-panel{
   display:none;
