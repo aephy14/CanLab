@@ -306,3 +306,12 @@ textarea{min-height:120px; resize:vertical}
   .icon-btn{display:inline-flex; align-items:center; justify-content:center}
   .mobile-panel.open{display:block}
 }
+
+@media (min-width: 1400px){
+  .hero-grid{
+    grid-template-columns: 1fr;
+  }
+  .mock{
+    min-height:400px;
+  }
+}
