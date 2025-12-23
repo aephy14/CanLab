@@ -29,7 +29,7 @@ Notes:
 ${payload.notes || ""}`
       );
 
-      const to = "hello@canfoundry.co.nz"; // change this
+      const to = "alejbeck@gmail.com"; // change this
       window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
 
       const toast = document.querySelector('[data-toast]');
