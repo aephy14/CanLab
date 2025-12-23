@@ -124,7 +124,7 @@ hr{border:0; border-top:1px solid var(--line); margin:0}
 .hero-grid{
   display:grid;
   grid-template-columns: 1.2fr .8fr;
-  gap:clamp(28px, 3vw, 60px);
+  gap:28px;
   align-items:stretch;
 }
 .kicker{
@@ -169,7 +169,7 @@ hr{border:0; border-top:1px solid var(--line); margin:0}
 
 .mock{
   height:100%;
-  min-height:clamp(240px, 30vw, 500px);
+  min-height:240px;
   border-radius: var(--radius);
   border:1px solid rgba(255,255,255,.12);
   position:relative;
