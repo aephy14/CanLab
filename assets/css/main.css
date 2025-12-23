@@ -317,19 +317,14 @@ textarea{min-height:120px; resize:vertical}
     min-height:400px;
   }
   .hero-grid > div:first-child{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    gap:40px;
+    max-width:none;
   }
   .hero-actions{
-    margin-top:40px;
-    flex-direction:column;
-    flex-shrink:0;
+    flex-direction:row;
+    justify-content:flex-start;
   }
   .hero-actions .btn{
-    padding:14px 24px;
-    font-size:16px;
-    white-space:nowrap;
+    padding:12px 20px;
+    font-size:15px;
   }
 }
