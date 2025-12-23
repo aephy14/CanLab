@@ -317,14 +317,31 @@ textarea{min-height:120px; resize:vertical}
     min-height:400px;
   }
   .hero-grid > div:first-child{
-    max-width:none;
+    display:grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto auto;
+    column-gap:60px;
+  }
+  .kicker{
+    grid-column: 1;
+  }
+  .h1{
+    grid-column: 1;
+  }
+  .lede{
+    grid-column: 1;
   }
   .hero-actions{
-    flex-direction:row;
-    justify-content:flex-start;
+    grid-column: 2;
+    grid-row: 3;
+    align-self:center;
+    margin-top:0;
+    flex-direction:column;
+    gap:12px;
   }
   .hero-actions .btn{
-    padding:12px 20px;
-    font-size:15px;
+    padding:14px 28px;
+    font-size:16px;
+    min-width:200px;
   }
 }
