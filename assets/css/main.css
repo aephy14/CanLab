@@ -40,7 +40,7 @@ hr{border:0; border-top:1px solid var(--line); margin:0}
   border-bottom:1px solid var(--line);
 }
 .nav-inner{
-  display:flex; align-items:center; justify-content:space-between;
+  display:flex; align-items:center; justify-content:flex-end;
   padding:14px 0;
   gap:14px;
 }
@@ -188,8 +188,8 @@ hr{border:0; border-top:1px solid var(--line); margin:0}
   object-fit:cover;
   filter: saturate(1.05) contrast(1.05);
 }
-.mock-inner{ position:absolute; inset:18px; display:flex; flex-direction:column; justify-content:space-between; z-index:2; }
-.mock-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+.mock-inner{ position:absolute; inset:18px; display:flex; flex-direction:column; justify-content:flex-end; z-index:2; }
+.mock-top{ display:flex; justify-content:flex-end; align-items:flex-start; gap:12px; }
 
 .badge{
   display:inline-flex; align-items:center; gap:8px;
@@ -204,7 +204,7 @@ hr{border:0; border-top:1px solid var(--line); margin:0}
 .mock-bottom{
   border-top:1px solid rgba(255,255,255,.10);
   padding-top:14px;
-  display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+  display:flex; justify-content:flex-end; gap:14px; flex-wrap:wrap;
 }
 .stat .k{color:rgba(255,255,255,.55); font-size:12px}
 .stat .v{font-size:14px; font-weight:600}
@@ -226,7 +226,7 @@ hr{border:0; border-top:1px solid var(--line); margin:0}
 .h2{ font-size:24px; letter-spacing:-0.02em; margin:0 0 10px 0; }
 .p{ color:var(--muted); margin:0; max-width:70ch; }
 .header-row{
-  display:flex; align-items:flex-end; justify-content:space-between;
+  display:flex; align-items:flex-end; justify-content:flex-end;
   gap:18px; flex-wrap:wrap;
   margin-bottom:18px;
 }
@@ -257,7 +257,7 @@ hr{border:0; border-top:1px solid var(--line); margin:0}
 
 .cta{padding:34px 0;}
 .cta-inner{
-  display:flex; align-items:center; justify-content:space-between;
+  display:flex; align-items:center; justify-content:flex-end;
   gap:18px; flex-wrap:wrap;
   padding:18px;
 }
@@ -266,7 +266,7 @@ hr{border:0; border-top:1px solid var(--line); margin:0}
 
 .footer{ padding:26px 0; color:var(--muted); font-size:13px; }
 .footer-row{
-  display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;
+  display:flex; justify-content:flex-end; align-items:center; gap:14px; flex-wrap:wrap;
 }
 .footer a{color:var(--muted)}
 .footer a:hover{color:var(--text)}
