@@ -305,6 +305,7 @@ textarea{min-height:120px; resize:vertical}
   .nav-links, .nav-cta .hide-sm{display:none}
   .icon-btn{display:inline-flex; align-items:center; justify-content:center}
   .mobile-panel.open{display:block}
+  .nav-cta{justify-content:flex-end}
 }
 
 @media (min-width: 1400px){
