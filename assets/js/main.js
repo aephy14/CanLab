@@ -18,7 +18,7 @@
       const data = new FormData(form);
       const payload = Object.fromEntries(data.entries());
 
-      const subject = encodeURIComponent(`CanFoundry project enquiry — ${payload.name || "New lead"}`);
+      const subject = encodeURIComponent(`CanLab project enquiry — ${payload.name || "New lead"}`);
       const body = encodeURIComponent(
 `Name: ${payload.name || ""}
 Email: ${payload.email || ""}
