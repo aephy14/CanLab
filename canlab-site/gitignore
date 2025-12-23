@@ -1,9 +1,0 @@
-# OS junk
-.DS_Store
-Thumbs.db
-
-# Environment variables / secrets
-.env
-
-# Future-proofing (if you ever add tooling)
-node_modules/
