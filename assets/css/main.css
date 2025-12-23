@@ -71,7 +71,7 @@ hr{border:0; border-top:1px solid var(--line); margin:0}
   background: rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.10);
 }
-.nav-cta{display:flex; gap:10px; align-items:center; justify-content:flex-end}
+.nav-cta{display:flex; gap:10px; align-items:center; flex-shrink:0}
 .btn{
   display:inline-flex; align-items:center; justify-content:center;
   padding:10px 16px;
