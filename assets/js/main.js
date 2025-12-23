@@ -35,7 +35,7 @@ ${payload.notes || ""}`
       const toast = document.querySelector('[data-toast]');
       if (toast) {
         toast.style.display = 'block';
-        toast.textContent = "Opening your email app… If it didn’t open, email hello@canfoundry.co.nz.";
+        toast.textContent = "Opening your email app… If it didn’t open, email alejbeck@gmail.com";
       }
     });
   }
