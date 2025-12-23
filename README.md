@@ -1,6 +1,6 @@
 # CanFoundry Website
 
-Clean, static marketing site for **CanFoundry** — a whitelabel canning and beverage launch service.
+Clean, static marketing site for **CanLab** — a whitelabel canning and beverage launch service.
 
 ## Stack
 - HTML5
@@ -22,4 +22,4 @@ Then visit `http://localhost:8000`.
 - `/assets/js` – scripts
 - `/assets/images` – images
 
-© CanFoundry
+© Canlab 2025
