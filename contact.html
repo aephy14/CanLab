@@ -68,7 +68,11 @@
           </div>
 
           <div class="card pad">
-            <form class="form" data-contact-form>
+            <form class="form" action="https://api.web3forms.com/submit" method="POST">
+              <input type="hidden" name="access_key" value="88e594d8-60cf-4125-b922-df3a37386d0c">
+              <input type="hidden" name="subject" value="New CanLab Contact Form Submission">
+              <input type="hidden" name="from_name" value="CanLab Website">
+              
               <div class="field">
                 <div class="label">Name</div>
                 <input class="input" name="name" placeholder="Alex" required />
