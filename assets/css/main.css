@@ -50,7 +50,7 @@ hr{border:0; border-top:1px solid var(--line); margin:0}
   font-weight:600;
 }
 .mark{
-  width:30px; height:30px; border-radius:10px;
+  width:36px; height:36px; border-radius:12px;
   border:1px solid var(--line);
   background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.04));
   box-shadow: var(--shadow);
