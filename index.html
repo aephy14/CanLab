@@ -11,9 +11,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- If you prefer to keep your existing external CSS, delete the <style> and keep your main.css -->
-  <!-- <link rel="stylesheet" href="assets/css/main.css" /> -->
-
   <style>
     :root{
       --bg:#070A10;
@@ -53,7 +50,7 @@
 
     .container{max-width:var(--max); margin:0 auto; padding:0 22px}
 
-    /* Subtle “grain” overlay (very Recorp-ish) */
+    /* Subtle “grain” overlay */
     .grain{
       pointer-events:none;
       position:fixed;
@@ -162,7 +159,6 @@
         radial-gradient(closest-side at 25% 55%, rgba(124,92,255,.28), transparent 70%),
         radial-gradient(closest-side at 65% 30%, rgba(24,227,200,.18), transparent 75%),
         radial-gradient(closest-side at 90% 70%, rgba(255,180,92,.10), transparent 75%);
-      filter: blur(0px);
       pointer-events:none;
     }
 
@@ -220,7 +216,6 @@
       position:relative;
     }
 
-    /* subtle silver shimmer on headline */
     .grad-title:after{
       content:"";
       position:absolute;
@@ -295,7 +290,6 @@
       overflow:hidden;
     }
 
-    /* sexy metallic sweep */
     .mock:after{
       content:"";
       position:absolute;
@@ -324,7 +318,19 @@
     @media (prefers-reduced-motion: reduce){
       .mock:after{animation:none}
     }
-    .mock img{width:100%; height:auto; transform: translateY(6px)}
+
+    /* IMPORTANT: make hero image responsive and avoid cropping */
+    .mock img{
+      width:100%;
+      height:auto;
+      display:block;
+      transform: translateY(6px);
+    }
+
+    /* Optional: keep the mock at a nice ratio on desktop, but don't force crop */
+    .mock-media{
+      padding: 16px 16px 0;
+    }
 
     .mock-inner{position:absolute; inset:auto 0 0 0; padding:16px}
 
@@ -379,11 +385,7 @@
       flex:0 0 auto;
     }
 
-    /* Nice gradient highlight on “services” cards */
-    .services-grid .card{
-      position:relative;
-      overflow:hidden;
-    }
+    .services-grid .card{position:relative; overflow:hidden;}
     .services-grid .card:after{
       content:"";
       position:absolute;
@@ -400,7 +402,6 @@
       pointer-events:none;
     }
 
-    /* CTA */
     .cta{
       background:
         radial-gradient(120% 180% at 0% 0%, rgba(124,92,255,.30), transparent 45%),
@@ -422,7 +423,6 @@
     }
     .cta p{margin:8px 0 0; color: rgba(244,246,255,.70)}
 
-    /* How it works header row */
     .header-row{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:16px}
     .h2{
       margin:0;
@@ -433,7 +433,6 @@
     }
     .p{margin:6px 0 0; color: rgba(244,246,255,.68); line-height:1.55}
 
-    /* Steps */
     .steps{
       display:grid;
       grid-template-columns: repeat(4, minmax(0,1fr));
@@ -453,7 +452,6 @@
       inset:-40px -40px auto auto;
       width:110px; height:110px;
       background: radial-gradient(circle at 30% 30%, rgba(24,227,200,.22), rgba(124,92,255,.18), transparent 70%);
-      filter: blur(0px);
       opacity:.9;
       pointer-events:none;
     }
@@ -477,7 +475,6 @@
       margin: 10px 0;
     }
 
-    /* Footer */
     .footer{padding:26px 0 30px; color: rgba(244,246,255,.62)}
     .footer-row{
       display:flex;
@@ -508,10 +505,8 @@
       .cta-inner{flex-direction:column; align-items:flex-start}
     }
 
-    /* Mobile panel open state */
     .mobile-panel.open{display:block}
 
-    /* Accessibility */
     .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
   </style>
 </head>
@@ -567,7 +562,7 @@
 
             <p class="lede">
               Minimum runs from <strong>1,000 cans</strong>. Any recipe. We handle formulation, branding, label art,
-              canning, packing, and delivery. Everything you need to launch a canned product without stitching together 
+              canning, packing, and delivery. Everything you need to launch a canned product without stitching together
               multiple vendors.
             </p>
 
@@ -592,14 +587,16 @@
             </div>
           </div>
 
+          <!-- ✅ HERO CAN IMAGE (responsive) -->
           <div class="mock" aria-label="Example cans">
-            <img
-              src="assets/images/cans/hero-cans.png"
-              alt="Example premium can designs"
-              loading="lazy"
-              decoding="async"
-              onerror="this.onerror=null; this.src='/assets/images/cans/hero-cans.png';"
-            />
+            <div class="mock-media">
+              <img
+                src="assets/images/cans/hero-cans.png"
+                alt="Example premium can designs"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
             <div class="mock-inner">
               <div class="mock-bottom">
                 <div class="stat">
@@ -617,6 +614,7 @@
               </div>
             </div>
           </div>
+          <!-- /hero can image -->
 
         </div>
       </div>
@@ -720,7 +718,7 @@
             <ul class="list">
               <li>New brand launches</li>
               <li>Pilot runs & seasonal releases</li>
-              <li>Weddings, birthdays and corporate events </li>
+              <li>Weddings, birthdays and corporate events</li>
               <li>Festival or club ready drinks</li>
             </ul>
           </div>
