@@ -101,8 +101,22 @@
       padding:14px 0;
     }
 
-    .brand{display:flex; align-items:center; gap:10px; font-family: Manrope, Inter, system-ui; font-weight:800; letter-spacing:.2px}
-    .mark{width:26px; height:26px}
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-family: Manrope, Inter, system-ui;
+      font-weight:800;
+      letter-spacing:.2px;
+      padding: 2px 0; /* prevents top/bottom clipping */
+      overflow: visible;
+    }
+    .mark{
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+      display:block;
+    }
 
     .nav-links{display:flex; gap:14px; align-items:center}
     .nav-links a{
