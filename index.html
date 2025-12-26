@@ -87,6 +87,7 @@
     /* Top nav */
     .nav{
       position:sticky;
+      overflow: visible;
       top:0;
       z-index:50;
       backdrop-filter: blur(12px);
@@ -98,7 +99,7 @@
       align-items:center;
       justify-content:space-between;
       gap:18px;
-      padding:14px 0;
+      padding:16px 0; /* a touch more vertical room to prevent logo clipping */
     }
 
     .brand{
@@ -108,11 +109,11 @@
       font-family: Manrope, Inter, system-ui;
       font-weight:800;
       letter-spacing:.2px;
-      padding: 2px 0; /* prevents top/bottom clipping */
+      padding: 6px 0; /* extra buffer: prevents any top/bottom clipping */
       overflow: visible;
     }
     .mark{
-      height: 28px;
+      height: 34px; /* avoid clipping if the PNG has tight bounds */
       width: auto;
       object-fit: contain;
       display:block;
