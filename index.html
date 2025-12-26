@@ -321,12 +321,14 @@
 
     /* IMPORTANT: make hero image responsive and avoid cropping */
     .mock img{
-      /* Scale up on mid screens, but cap on ultrawide so it doesn't get too tall */
-      width: clamp(104%, 28vw, 122%);
+      /* Centered, balanced hero image scaling */
+      width: clamp(102%, 24vw, 116%);
       max-width: none;
       height: auto;
       display:block;
-      transform: translate(clamp(-5%, -3vw, -2%), clamp(2%, 1.2vw, 5%));
+      margin-left: auto;
+      margin-right: auto;
+      transform: translateY(clamp(2%, 1vw, 4%));
     }
 
     /* Optional: keep the mock at a nice ratio on desktop, but don't force crop */
