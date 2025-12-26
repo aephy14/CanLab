@@ -187,10 +187,10 @@
 
     .hero-grid{
       display:grid;
-      /* Keep text readable; let the cans side expand with the viewport */
+      /* Keep text readable; let the cans side expand, but never exceed text height */
       grid-template-columns: minmax(0, var(--hero-text-max)) minmax(0, 1fr);
       gap: clamp(24px, 4vw, 56px);
-      align-items:start;
+      align-items: stretch;
     }
 
     .kicker{
@@ -306,13 +306,14 @@
       background:
         radial-gradient(120% 160% at 8% 8%, rgba(255,255,255,.32), rgba(255,255,255,.06) 42%, rgba(255,255,255,.02) 70%),
         radial-gradient(110% 140% at 92% 18%, rgba(205,210,225,.38), transparent 48%),
-        radial-gradient(100% 120% at 50% 105%, rgba(170,175,190,.22), transparent 60%),
+        radial-gradient(100% 120% at 50% 105%, rgba(170,175190,.22), transparent 60%),
         linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
       box-shadow:
         0 30px 90px rgba(0,0,0,.55),
         inset 0 1px 0 rgba(255,255,255,.40);
       overflow:hidden;
-      margin-top: clamp(0px, 4vw, 36px); /* align top with kicker, bottom with CTAs */
+      display:flex;
+      flex-direction:column;
     }
 
     .mock:after{
@@ -325,20 +326,23 @@
 
     /* IMPORTANT: make hero image responsive and avoid cropping */
     .mock img{
-      /* Let the container sizing drive scale (more reliable than vw clamps) */
-      width: 100%;
-      max-width: none;
-      height: auto;
+      width:100%;
+      height:100%;
+      max-height:100%;
+      object-fit:contain; /* never exceed hero text height */
       display:block;
-      margin-left: auto;
-      margin-right: auto;
-      transform: translateY(clamp(2%, 1vw, 4%));
+      margin:0 auto;
+      transform:none;
     }
 
     /* Optional: keep the mock at a nice ratio on desktop, but don't force crop */
     .mock-media{
       position:relative;
-      padding: 16px 16px 0;
+      padding:16px;
+      flex:1 1 auto; /* take available height, but not more */
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
     /* If the image can't load (common in preview/canvas), show a tasteful fallback */
@@ -598,6 +602,7 @@
     <section class="hero">
       <div class="container hero-container">
         <div class="hero-grid">
+          <div class="hero-text">
           <div>
             <div class="kicker"><span class="dot" aria-hidden="true"></span> Whitelabel canning • NZ</div>
 
@@ -628,6 +633,8 @@
                 Carbonated & still
               </div>
             </div>
+          </div>
+
           </div>
 
           <div class="mock hero-mock" aria-label="Example cans">
