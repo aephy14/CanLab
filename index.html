@@ -99,7 +99,7 @@
       align-items:center;
       justify-content:space-between;
       gap:18px;
-      padding:16px 0; /* a touch more vertical room to prevent logo clipping */
+      padding:20px 0; /* extra headroom so logo can never clip */ /* a touch more vertical room to prevent logo clipping */
     }
 
     .brand{
@@ -109,14 +109,16 @@
       font-family: Manrope, Inter, system-ui;
       font-weight:800;
       letter-spacing:.2px;
-      padding: 6px 0; /* extra buffer: prevents any top/bottom clipping */
+      padding: 8px 0; /* hard buffer above + below */
+      line-height: 1; /* avoid font ascender clipping */
       overflow: visible;
     }
     .mark{
-      height: 34px; /* avoid clipping if the PNG has tight bounds */
+      height: 36px; /* final safe height */
       width: auto;
       object-fit: contain;
       display:block;
+      margin-top: 2px; /* optical nudge down to avoid top crop */
     }
 
     .nav-links{display:flex; gap:14px; align-items:center}
