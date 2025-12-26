@@ -5,24 +5,364 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact — CanLab</title>
   <meta name="description" content="Start a whitelabel canning project. 1,000+ cans. Any recipe. Branding and delivery available." />
-  <link rel="stylesheet" href="assets/css/main.css" />
+
+  <!-- Fonts (match index) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg:#070A10;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.08);
+      --text:#F4F6FF;
+      --muted:rgba(244,246,255,.68);
+      --muted2:rgba(244,246,255,.52);
+      --line:rgba(255,255,255,.10);
+      --shadow: 0 28px 80px rgba(0,0,0,.55);
+      --radius:18px;
+      --max:1160px;
+      --accent1:#7C5CFF; /* violet */
+      --accent2:#C9D1DE; /* silver */
+      --accent3:#FFB45C; /* warm */
+      --accent4:#3AA0FF; /* blue */
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 700px at 12% -10%, rgba(124,92,255,.35), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(201,209,222,.16), transparent 55%),
+        radial-gradient(1200px 800px at 40% 120%, rgba(58,160,255,.14), transparent 60%),
+        linear-gradient(180deg, #060912 0%, #070A10 50%, #070A10 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+
+    .container{
+      max-width:var(--max);
+      margin:0 auto;
+      padding: clamp(16px, 4vw, 28px);
+    }
+
+    /* Subtle “grain” overlay */
+    .grain{
+      pointer-events:none;
+      position:fixed;
+      inset:0;
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="2" stitchTiles="stitch"/></filter><rect width="180" height="180" filter="url(%23n)" opacity=".25"/></svg>');
+      mix-blend-mode: overlay;
+      opacity:.12;
+    }
+
+    /* Brand wordmark */
+    .brand-name{
+      font-family: "Space Grotesk", Manrope, Inter, system-ui;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-size: 20px;
+      text-transform: none;
+      color: rgba(244,246,255,.96);
+      line-height: 1;
+    }
+
+    /* Top nav */
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:50;
+      overflow:visible;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(7,10,16,.72), rgba(7,10,16,.35));
+      border-bottom:1px solid rgba(255,255,255,.08);
+      padding-top: env(safe-area-inset-top);
+    }
+    .nav-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:26px 0 22px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-family: Manrope, Inter, system-ui;
+      font-weight:800;
+      letter-spacing:.2px;
+      padding: 8px 0;
+      line-height: 1;
+      overflow: visible;
+    }
+    .mark{
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      display:block;
+      margin-top: 4px;
+    }
+
+    .nav-links{display:flex; gap:14px; align-items:center}
+    .nav-links a{
+      font-size:14px;
+      color:rgba(244,246,255,.78);
+      padding:10px 10px;
+      border-radius:999px;
+      transition: all .2s ease;
+    }
+    .nav-links a:hover{background:rgba(255,255,255,.06); color:var(--text)}
+    .nav-links a.active{background:rgba(255,255,255,.08); color:var(--text)}
+
+    .nav-cta{display:flex; align-items:center; gap:10px}
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:11px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      font-size:14px;
+      font-weight:600;
+      transition: transform .12s ease, background .2s ease, border-color .2s ease;
+      white-space:nowrap;
+      cursor:pointer;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.085); border-color: rgba(255,255,255,.18)}
+
+    .btn.primary{
+      border-color: rgba(124,92,255,.45);
+      background:
+        radial-gradient(120% 160% at 20% 0%, rgba(24,227,200,.18), transparent 40%),
+        linear-gradient(135deg, rgba(124,92,255,.95), rgba(58,160,255,.72));
+      box-shadow: 0 18px 55px rgba(124,92,255,.22);
+    }
+
+    .icon-btn{
+      width:42px;
+      height:42px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      color:rgba(244,246,255,.9);
+    }
+    .icon-btn:hover{background: rgba(255,255,255,.085)}
+
+    /* Mobile panel */
+    .mobile-panel{
+      display:none;
+      border-top:1px solid rgba(255,255,255,.08);
+      padding:10px 0 14px;
+    }
+    .mobile-panel a{
+      display:block;
+      padding:12px 12px;
+      border-radius:12px;
+      color:rgba(244,246,255,.82);
+    }
+    .mobile-panel a:hover{background:rgba(255,255,255,.06); color:var(--text)}
+    .mobile-panel.open{display:block}
+
+    /* Sections */
+    .section{padding:52px 0}
+    .section.top{padding-top:34px}
+    .section.sm{padding:32px 0}
+
+    /* Page header kicker / headline / lede */
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size:13px;
+      color:rgba(244,246,255,.72);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      padding:9px 12px;
+      border-radius:999px;
+      backdrop-filter: blur(10px);
+    }
+
+    .h1{
+      margin:14px 0 10px;
+      font-family: Manrope, Inter, system-ui;
+      font-weight:850;
+      font-size: clamp(34px, 6vw, 64px);
+      line-height: clamp(1.05, 1.1 + 0.2vw, 1.15);
+      letter-spacing: clamp(-0.04em, -0.02em + 0.2vw, -0.015em);
+    }
+
+    .lede{
+      margin:0;
+      font-size: clamp(15px, 1.6vw, 17px);
+      line-height: clamp(1.45, 1.5 + 0.2vw, 1.65);
+      color: rgba(244,246,255,.74);
+      max-width: min(60ch, 100%);
+    }
+
+    /* Grid + cards */
+    .grid-2{display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:14px; margin-top: 18px;}
+
+    .card{
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: 0 20px 55px rgba(0,0,0,.35);
+    }
+    .pad{padding:18px}
+
+    .title{
+      margin:0;
+      font-family: Manrope, Inter, system-ui;
+      font-weight:800;
+      font-size: clamp(15px, 1.4vw, 16px);
+      letter-spacing: -0.01em;
+    }
+
+    .sub{
+      margin:8px 0 0;
+      color: rgba(244,246,255,.68);
+      line-height: clamp(1.45, 1.5 + 0.15vw, 1.6);
+      font-size: clamp(14px, 1.3vw, 15px);
+    }
+
+    .list{margin:14px 0 0; padding:0; list-style:none; display:grid; gap:10px}
+    .list li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color: rgba(244,246,255,.74);
+      font-size:14px;
+    }
+    .list li:before{
+      content:"";
+      width:10px; height:10px;
+      margin-top:5px;
+      border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, var(--accent2), var(--accent1));
+      box-shadow: 0 0 0 3px rgba(124,92,255,.10);
+      flex:0 0 auto;
+    }
+
+    /* Form styling (fits brand) */
+    .form{display:grid; gap:12px}
+    .field{display:grid; gap:8px}
+    .field.full{grid-column: 1 / -1}
+
+    .label{
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color: rgba(244,246,255,.60);
+      font-weight: 700;
+      font-family: Manrope, Inter, system-ui;
+    }
+
+    .input,
+    textarea{
+      width:100%;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      padding: 12px 12px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .2s ease, background .2s ease, transform .12s ease;
+    }
+
+    textarea{min-height: 120px; resize: vertical; padding: 12px}
+
+    .input:focus,
+    textarea:focus{
+      border-color: rgba(124,92,255,.50);
+      background: rgba(255,255,255,.055);
+    }
+
+    ::placeholder{color: rgba(244,246,255,.45)}
+
+    /* CTA */
+    .cta{
+      background:
+        radial-gradient(120% 180% at 0% 0%, rgba(124,92,255,.30), transparent 45%),
+        radial-gradient(120% 180% at 100% 0%, rgba(24,227,200,.20), transparent 45%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+    }
+    .cta-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:18px;
+    }
+    .cta h3{
+      margin:0;
+      font-family: Manrope, Inter, system-ui;
+      font-weight:850;
+      letter-spacing:-.02em;
+    }
+    .cta p{margin:8px 0 0; color: rgba(244,246,255,.70)}
+
+    /* Footer */
+    .footer{padding:26px 0 30px; color: rgba(244,246,255,.62)}
+    .footer-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      border-top:1px solid rgba(255,255,255,.08);
+      padding-top:18px;
+    }
+    .small-links{display:flex; gap:14px; flex-wrap:wrap}
+    .small-links a{color: rgba(244,246,255,.62)}
+    .small-links a:hover{color: rgba(244,246,255,.88)}
+
+    /* Responsive */
+    @media (max-width: 820px){
+      .nav-links{display:none}
+      .icon-btn{display:inline-flex}
+      .hide-sm{display:none}
+      .grid-2{grid-template-columns: 1fr}
+      .cta-inner{flex-direction:column; align-items:flex-start}
+    }
+
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+  </style>
 </head>
 <body>
+
+  <div class="grain" aria-hidden="true"></div>
 
   <header class="nav">
     <div class="container">
       <div class="nav-inner">
         <a class="brand" href="index.html" aria-label="CanLab home">
           <img class="mark" src="assets/images/brand/logo.png" alt="CanLab" />
-          <span>CanLab</span>
+          <span class="brand-name" aria-hidden="true">CanLab</span>
         </a>
 
         <nav class="nav-links" aria-label="Primary navigation">
-          <a class="" href="index.html">Home</a>
-          <a class="" href="services.html">Services</a>
-          <a class="" href="how-it-works.html">How it works</a>
-          <a class="" href="about.html">About</a>
-          <a class="" href="faq.html">FAQ</a>
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="how-it-works.html">How it works</a>
+          <a href="about.html">About</a>
+          <a href="faq.html">FAQ</a>
           <a class="active" href="contact.html">Contact</a>
         </nav>
 
@@ -38,11 +378,11 @@
       </div>
 
       <div class="mobile-panel" data-mobile-panel>
-        <a class="" href="index.html">Home</a>
-        <a class="" href="services.html">Services</a>
-        <a class="" href="how-it-works.html">How it works</a>
-        <a class="" href="about.html">About</a>
-        <a class="" href="faq.html">FAQ</a>
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
         <a class="active" href="contact.html">Contact</a>
       </div>
     </div>
@@ -59,11 +399,12 @@
           <div class="card pad">
             <p class="title">What we need</p>
             <ul class="list">
-              <li>Beverage type ( soda, RTD, functional, juice)</li>
-              <li>Volume (starts at 1,000 330ml cans)</li>
+              <li>Beverage type (soda, RTD, functional, juice)</li>
+              <li>Volume (starts at 1,000 × 330ml cans)</li>
               <li>Branding needs (optional)</li>
-              <li>Best Before and preservation goals</li>
+              <li>Best before + preservation goals</li>
               <li>Timeline goal</li>
+            </ul>
           </div>
 
           <div class="card pad">
@@ -71,7 +412,7 @@
               <input type="hidden" name="access_key" value="88e594d8-60cf-4125-b922-df3a37386d0c">
               <input type="hidden" name="subject" value="New CanLab Contact Form Submission">
               <input type="hidden" name="from_name" value="CanLab Website">
-              
+
               <div class="field">
                 <div class="label">Name</div>
                 <input class="input" name="name" placeholder="Alex" required />
@@ -79,7 +420,7 @@
 
               <div class="field">
                 <div class="label">Email</div>
-                <input class="input" name="email" type="email" placeholder="Sage@email.com" required />
+                <input class="input" name="email" type="email" placeholder="sage@email.com" required />
               </div>
 
               <div class="field">
@@ -112,7 +453,7 @@
           </div>
         </div>
 
-         <div style="margin-top: 28px;">
+        <div style="margin-top: 28px;">
           <div class="card pad" style="text-align: center;">
             <p style="color: var(--muted); margin: 0 0 14px 0;">Prefer to reach out directly?</p>
             <div style="display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;">
@@ -151,7 +492,20 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js"></script>
+  <script>
+    // year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // mobile nav
+    const btn = document.querySelector('[data-menu-btn]');
+    const panel = document.querySelector('[data-mobile-panel]');
+    if(btn && panel){
+      btn.addEventListener('click', () => {
+        const open = panel.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
+  </script>
 
 </body>
 </html>
