@@ -9,7 +9,7 @@
   <!-- Fonts (cleaner, slightly more premium) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root{
@@ -75,31 +75,32 @@
 
     /* Top nav */
     .brand-name{
-      font-family: Manrope, Inter, system-ui;
-      font-weight: 850;
-      letter-spacing: .2px;
-      font-size: 14px;
-      color: rgba(244,246,255,.92);
+      font-family: "Space Grotesk", Manrope, Inter, system-ui;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-size: 20px;
+      text-transform: none; /* keep CanLab casing */
+      color: rgba(244,246,255,.96);
       line-height: 1;
-      transform: translateY(1px);
     }
 
     /* Top nav */
     .nav{
       position:sticky;
-      overflow: visible;
       top:0;
       z-index:50;
+      overflow:visible;
       backdrop-filter: blur(12px);
       background: linear-gradient(180deg, rgba(7,10,16,.72), rgba(7,10,16,.35));
       border-bottom:1px solid rgba(255,255,255,.08);
+      padding-top: env(safe-area-inset-top); /* iOS / Safari notch safety */
     }
     .nav-inner{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:18px;
-      padding:20px 0; /* extra headroom so logo can never clip */ /* a touch more vertical room to prevent logo clipping */
+      padding:26px 0 22px; /* HARD vertical buffer so logo can never clip */
     }
 
     .brand{
@@ -114,11 +115,11 @@
       overflow: visible;
     }
     .mark{
-      height: 36px; /* final safe height */
+      height: 40px; /* absolute safe height */
       width: auto;
       object-fit: contain;
       display:block;
-      margin-top: 2px; /* optical nudge down to avoid top crop */
+      margin-top: 4px; /* final downward nudge */ /* optical nudge down to avoid top crop */
     }
 
     .nav-links{display:flex; gap:14px; align-items:center}
