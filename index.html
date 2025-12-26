@@ -48,7 +48,11 @@
     a{color:inherit; text-decoration:none}
     img{max-width:100%; display:block}
 
-    .container{max-width:var(--max); margin:0 auto; padding:0 22px}
+    .container{
+      max-width:var(--max);
+      margin:0 auto;
+      padding: clamp(16px, 4vw, 28px);
+    }
 
     /* Subtle “grain” overlay */
     .grain{
@@ -202,9 +206,9 @@
       margin:14px 0 10px;
       font-family: Manrope, Inter, system-ui;
       font-weight:850;
-      font-size: clamp(40px, 5vw, 64px);
-      line-height:1.03;
-      letter-spacing:-.03em;
+      font-size: clamp(34px, 6vw, 64px);
+      line-height: clamp(1.05, 1.1 + 0.2vw, 1.15);
+      letter-spacing: clamp(-0.04em, -0.02em + 0.2vw, -0.015em);
     }
 
     .grad-title{
@@ -257,10 +261,10 @@
 
     .lede{
       margin:0;
-      font-size:16.5px;
-      line-height:1.6;
+      font-size: clamp(15px, 1.6vw, 17px);
+      line-height: clamp(1.45, 1.5 + 0.2vw, 1.65);
       color: rgba(244,246,255,.74);
-      max-width: 58ch;
+      max-width: min(60ch, 100%);
     }
 
     .hero-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
@@ -281,7 +285,7 @@
       border:1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
       color: rgba(244,246,255,.72);
-      font-size:13px;
+      font-size: clamp(12px, 1.2vw, 13px);
     }
     .pill svg{width:16px; height:16px; opacity:.92}
 
@@ -302,33 +306,12 @@
     }
 
     .mock:after{
+      /* removed: this metallic sweep was causing a visible curved line on some displays */
       content:"";
-      position:absolute;
-      inset:-40% -60%;
-      background:
-        linear-gradient(115deg,
-          rgba(255,255,255,0) 0%,
-          rgba(255,255,255,.10) 18%,
-          rgba(255,255,255,.32) 28%,
-          rgba(255,255,255,.08) 38%,
-          rgba(255,255,255,0) 55%
-        );
-      transform: rotate(10deg) translateX(-35%);
-      opacity:.35;
-      pointer-events:none;
-      mix-blend-mode: overlay;
-      animation: sheen 7.5s ease-in-out infinite;
+      display:none;
     }
 
-    @keyframes sheen{
-      0%, 35% { transform: rotate(10deg) translateX(-45%); opacity:.18; }
-      55%     { transform: rotate(10deg) translateX(8%);  opacity:.42; }
-      75%,100%{ transform: rotate(10deg) translateX(40%); opacity:.18; }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .mock:after{animation:none}
-    }
+    /* (sheen animation removed) */
 
     /* IMPORTANT: make hero image responsive and avoid cropping */
     .mock img{
@@ -354,7 +337,7 @@
         radial-gradient(140% 120% at 20% 10%, rgba(124,92,255,.20), transparent 55%),
         radial-gradient(140% 120% at 90% 20%, rgba(24,227,200,.14), transparent 55%),
         linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      display:none;
+      display:flex;
       align-items:center;
       justify-content:center;
       padding:18px;
@@ -362,7 +345,7 @@
     .mock-fallback-inner{max-width: 36ch; text-align:center}
     .mf-title{font-family: Manrope, Inter, system-ui; font-weight: 850; letter-spacing: -.01em}
     .mf-sub{margin-top:6px; font-size:13px; color: rgba(244,246,255,.62)}
-    .mock.img-missing .mock-fallback{display:flex}
+    .mock:not(.img-missing) .mock-fallback{display:none}
     .mock.img-missing img{opacity:0}
 
     .mock-inner{position:absolute; inset:auto 0 0 0; padding:16px}
@@ -397,8 +380,19 @@
     }
     .pad{padding:18px}
 
-    .title{margin:0; font-family: Manrope, Inter, system-ui; font-weight:800; font-size:16px; letter-spacing:-.01em}
-    .sub{margin:8px 0 0; color: rgba(244,246,255,.68); line-height:1.55}
+    .title{
+      margin:0;
+      font-family: Manrope, Inter, system-ui;
+      font-weight:800;
+      font-size: clamp(15px, 1.4vw, 16px);
+      letter-spacing: -0.01em;
+    }
+    .sub{
+      margin:8px 0 0;
+      color: rgba(244,246,255,.68);
+      line-height: clamp(1.45, 1.5 + 0.15vw, 1.6);
+      font-size: clamp(14px, 1.3vw, 15px);
+    }
 
     .list{margin:14px 0 0; padding:0; list-style:none; display:grid; gap:10px}
     .list li{
@@ -629,7 +623,8 @@
                 alt="Example premium can designs"
                 loading="lazy"
                 decoding="async"
-                onerror="this.onerror=null; this.closest('.mock').classList.add('img-missing'); this.src='/assets/images/cans/hero-cans.png';"
+                onload="this.closest('.mock').classList.remove('img-missing')"
+                onerror="this.closest('.mock').classList.add('img-missing')"
               />
               <div class="mock-fallback" aria-hidden="true">
                 <div class="mock-fallback-inner">
