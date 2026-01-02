@@ -297,6 +297,18 @@
 
     ::placeholder{color: rgba(244,246,255,.45)}
 
+    /* Honeypot: hide from humans, keep in DOM for bots */
+    .hp{
+      position:absolute !important;
+      left:-9999px !important;
+      top:auto !important;
+      width:1px !important;
+      height:1px !important;
+      overflow:hidden !important;
+      opacity:0 !important;
+      pointer-events:none !important;
+    }
+
     /* CTA */
     .cta{
       background:
@@ -342,7 +354,7 @@
       .cta-inner{flex-direction:column; align-items:flex-start}
     }
 
-    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
   </style>
 </head>
 <body>
@@ -413,6 +425,11 @@
               <input type="hidden" name="subject" value="New CanLab Contact Form Submission">
               <input type="hidden" name="from_name" value="CanLab Website">
 
+              <!-- anti-spam (honeypot + timing) -->
+              <input type="text" name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+              <input type="hidden" name="form_started_at" value="">
+              <input type="hidden" name="form_token" value="">
+
               <div class="field">
                 <div class="label">Name</div>
                 <input class="input" name="name" placeholder="Alex" required />
@@ -456,21 +473,33 @@
         <div style="margin-top: 28px;">
           <div class="card pad" style="text-align: center;">
             <p style="color: var(--muted); margin: 0 0 14px 0;">Prefer to reach out directly?</p>
+
             <div style="display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;">
-              <a href="tel:0211487709" class="btn">
+
+              <!-- PHONE (obfuscated; revealed on click) -->
+              <a href="#" class="btn" data-reveal="phone" data-phone-b64="MDIxMTQ4NzcwOQ==">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                 </svg>
-                021 148 7709
+                Call (tap to reveal)
               </a>
-              <a href="mailto:alejbeck@gmail.com" class="btn">
+
+              <!-- EMAIL (obfuscated; revealed on click) -->
+              <a href="#" class="btn" data-reveal="email" data-email-b64="YWxlamJlY2tAZ21haWwuY29t">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                   <polyline points="22,6 12,13 2,6"></polyline>
                 </svg>
-                alejbeck@gmail.com
+                Email (tap to reveal)
               </a>
+
             </div>
+
+            <noscript>
+              <p style="color: var(--muted); margin-top: 14px;">
+                JavaScript is required to reveal contact details. Please use the form above.
+              </p>
+            </noscript>
           </div>
         </div>
 
@@ -505,6 +534,88 @@
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
     }
+
+    // reveal phone/email only on user action (prevents basic scraping)
+    function decodeB64(s){
+      try { return atob(s); } catch(e) { return ""; }
+    }
+
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const kind = el.getAttribute('data-reveal');
+
+        if(kind === 'phone'){
+          const phone = decodeB64(el.getAttribute('data-phone-b64') || "");
+          if(!phone) return;
+          el.href = 'tel:' + phone.replace(/\s+/g,'');
+          el.textContent = phone.replace(/^(\d{3})(\d{3})(\d{4})$/, '$1 $2 $3');
+          el.click();
+        }
+
+        if(kind === 'email'){
+          const email = decodeB64(el.getAttribute('data-email-b64') || "");
+          if(!email) return;
+          el.href = 'mailto:' + email;
+          el.textContent = email;
+          el.click();
+        }
+      }, { passive:false });
+    });
+
+    // ===== Anti-spam: honeypot + timing =====
+    (function(){
+      const form = document.querySelector('form[action="https://api.web3forms.com/submit"]');
+      if(!form) return;
+
+      const startedAt = form.querySelector('input[name="form_started_at"]');
+      const token = form.querySelector('input[name="form_token"]');
+      const hp = form.querySelector('input[name="website"]');
+
+      const t0 = Date.now();
+      if(startedAt) startedAt.value = String(t0);
+
+      const rnd = Math.random().toString(36).slice(2);
+      if(token) token.value = btoa(String(t0) + "|" + rnd);
+
+      const toast = form.querySelector('[data-toast]');
+      function showError(msg){
+        if(toast){
+          toast.textContent = msg;
+          toast.style.marginTop = "10px";
+          toast.style.color = "rgba(244,246,255,.85)";
+          toast.style.background = "rgba(255,70,70,.12)";
+          toast.style.border = "1px solid rgba(255,70,70,.22)";
+          toast.style.padding = "10px 12px";
+          toast.style.borderRadius = "12px";
+        } else {
+          alert(msg);
+        }
+      }
+
+      form.addEventListener('submit', function(e){
+        if(hp && hp.value && hp.value.trim().length > 0){
+          e.preventDefault();
+          return;
+        }
+
+        const minMs = 3500;
+        const elapsed = Date.now() - t0;
+
+        if(elapsed < minMs){
+          e.preventDefault();
+          showError("Please take a moment and try again.");
+          return;
+        }
+
+        if(token && (!token.value || token.value.length < 8)){
+          e.preventDefault();
+          showError("Something went wrong. Please refresh and try again.");
+          return;
+        }
+      });
+    })();
   </script>
 
 </body>
