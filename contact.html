@@ -375,6 +375,7 @@
           <a href="how-it-works.html">How it works</a>
           <a href="about.html">About</a>
           <a href="faq.html">FAQ</a>
+          <a href="for-sale.html">For sale</a>
           <a class="active" href="contact.html">Contact</a>
         </nav>
 
@@ -395,6 +396,7 @@
         <a href="how-it-works.html">How it works</a>
         <a href="about.html">About</a>
         <a href="faq.html">FAQ</a>
+        <a href="for-sale.html">For sale</a>
         <a class="active" href="contact.html">Contact</a>
       </div>
     </div>
@@ -563,6 +565,18 @@
         }
       }, { passive:false });
     });
+
+    // ===== Prefill from For sale enquiry (?product=...) =====
+    (function(){
+      const product = new URLSearchParams(location.search).get('product');
+      if(!product) return;
+      const form = document.querySelector('form[action="https://api.web3forms.com/submit"]');
+      if(!form) return;
+      const subject = form.querySelector('input[name="subject"]');
+      const notes = form.querySelector('textarea[name="notes"]');
+      if(subject) subject.value = 'For sale enquiry: ' + product;
+      if(notes && !notes.value) notes.value = "Hi, I'm interested in: " + product + ". Quantity: ";
+    })();
 
     // ===== Anti-spam: honeypot + timing =====
     (function(){
